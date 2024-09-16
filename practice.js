@@ -37,7 +37,15 @@ function bakeAndSellPies(pieType, pieQuantity, profitMargin) {
   // Find the recipe for the pieType specified
   const recipe = recipes[pieType];
   // Bake the number of pies specified by the pieQuantity
-  for (let i = 0; i < pieQuantity; i++) {
+  bakePie(pieType, recipe, pieQuantity);
+
+  // Print the cost of each pie based on the cost of each ingredient
+  costPerPie(recipe, pieQuantity, profitMargin);
+}
+
+function bakePie(pieType, recipe, quantity) {
+  // Bake the number of pies specified by the pieQuantity
+  for (let i = 0; i < quantity; i++) {
     // Print the ingredients for each ingredient in the recipe
     let combiningMsg = `Combining ingredients for ${pieType}: `
     combiningMsg += recipe.map(ingredient => ingredient.name).join(', ');
@@ -46,13 +54,20 @@ function bakeAndSellPies(pieType, pieQuantity, profitMargin) {
     // Print the nth pie that was baked
     console.log(`Baked pie ${i + 1}!`);
   }
+}
 
+function costPerPie(recipe, pieQuantity, profitMargin) {
   // Print the cost of each pie based on the cost of each ingredient
   const costOfPie = recipe.reduce((prev, current) => {
     return prev + current.cost;
   }, recipe[0].cost);
   console.log(`Cost per pie: ${costOfPie}`);
 
+  // Calculate the total cost of all the pies
+  totalCost(costOfPie, pieQuantity, profitMargin);
+}
+
+function totalCost(costOfPie, pieQuantity, profitMargin) {
   // Calculate the total cost of all the pies
   const totalCost = costOfPie * pieQuantity;
 
